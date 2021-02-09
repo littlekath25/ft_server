@@ -6,7 +6,7 @@
 #    By: kfu <kfu@student.codam.nl>                   +#+                      #
 #                                                    +#+                       #
 #    Created: 2021/02/04 17:24:37 by kfu           #+#    #+#                  #
-#    Updated: 2021/02/09 12:19:22 by kfu           ########   odam.nl          #
+#    Updated: 2021/02/09 12:27:19 by kfu           ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -51,7 +51,7 @@ RUN	service mysql start && \
 	echo "GRANT ALL PRIVILEGES ON wordpress.* TO 'kfu'@'localhost' IDENTIFIED BY 'password';" | mysql -u root && \
 	echo "FLUSH PRIVILEGES;" | mysql -u root
 
-# #Installing Wordpress
+# Installing Wordpress, connecting the database and changing the example.com
 RUN wget -cP ./tmp/ https://wordpress.org/latest.tar.gz
 RUN tar -xvzf ./tmp/latest.tar.gz -C /var/www/localhost/
 RUN mv ./tmp/wp-config.php /var/www/localhost/wordpress/wp-config.php
