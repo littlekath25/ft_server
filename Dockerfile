@@ -6,7 +6,7 @@
 #    By: kfu <kfu@student.codam.nl>                   +#+                      #
 #                                                    +#+                       #
 #    Created: 2021/02/04 17:24:37 by kfu           #+#    #+#                  #
-#    Updated: 2021/02/09 17:11:18 by kfu           ########   odam.nl          #
+#    Updated: 2021/02/09 17:20:31 by kfu           ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -17,9 +17,6 @@ RUN apt update && apt-get upgrade -y
 RUN apt-get -y install wget
 RUN apt-get -y install php php-common php-cli php-fpm php-json php-mysql php-zip
 
-# Change permissions
-RUN chmod -R 755 ./srcs/
-
 # Copying the config files
 COPY ./srcs/start.sh .
 COPY ./srcs/autoindex.sh .
@@ -27,6 +24,10 @@ COPY ./srcs/localhost ./tmp/localhost
 COPY ./srcs/wp-config.php ./tmp/wp-config.php
 COPY ./srcs/config.inc.php ./tmp/config.inc.php
 COPY ./srcs/index.html ./tmp/index.html
+
+# Giving permissions
+RUN CHMOD 775 start.sh
+RUN CHMOD 775 autoindex.sh
 
 # Making the new dir
 RUN mkdir -p /var/www/localhost
