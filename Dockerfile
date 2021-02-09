@@ -6,7 +6,7 @@
 #    By: kfu <kfu@student.codam.nl>                   +#+                      #
 #                                                    +#+                       #
 #    Created: 2021/02/04 17:24:37 by kfu           #+#    #+#                  #
-#    Updated: 2021/02/09 13:24:42 by kfu           ########   odam.nl          #
+#    Updated: 2021/02/09 17:11:18 by kfu           ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,6 +16,9 @@ FROM debian:buster
 RUN apt update && apt-get upgrade -y
 RUN apt-get -y install wget
 RUN apt-get -y install php php-common php-cli php-fpm php-json php-mysql php-zip
+
+# Change permissions
+RUN chmod -R 755 ./srcs/
 
 # Copying the config files
 COPY ./srcs/start.sh .
