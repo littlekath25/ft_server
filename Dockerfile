@@ -6,7 +6,7 @@
 #    By: kfu <kfu@student.codam.nl>                   +#+                      #
 #                                                    +#+                       #
 #    Created: 2021/02/04 17:24:37 by kfu           #+#    #+#                  #
-#    Updated: 2021/02/09 12:27:19 by kfu           ########   odam.nl          #
+#    Updated: 2021/02/09 13:24:42 by kfu           ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -52,16 +52,14 @@ RUN	service mysql start && \
 	echo "FLUSH PRIVILEGES;" | mysql -u root
 
 # Installing Wordpress, connecting the database and changing the example.com
-RUN wget -cP ./tmp/ https://wordpress.org/latest.tar.gz
+RUN wget -c -P ./tmp/ https://wordpress.org/latest.tar.gz
 RUN tar -xvzf ./tmp/latest.tar.gz -C /var/www/localhost/
 RUN mv ./tmp/wp-config.php /var/www/localhost/wordpress/wp-config.php
 RUN service mysql start && \
-	wget -cP ./tmp/ https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar && \
+	wget -c -P ./tmp/ https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar && \
 	chmod +x ./tmp/wp-cli.phar && \
 	mv ./tmp/wp-cli.phar /usr/local/bin/wp && \
-	wp core download --allow-root && \
-	wp config create --dbname=wordpress --dbuser=kfu --dbpass=password --allow-root && \
-	wp core install --allow-root --url="/"  --title="Hello World" --admin_user="kfu" --admin_password="password" --admin_email="kfu@student.codam.nl" && \
+	wp core install --path='/var/www/localhost/wordpress' --allow-root --url="/"  --title="Hello World" --admin_user="kfu" --admin_password="password" --admin_email="kfu@student.codam.nl" && \
 	mysql -e "USE wordpress;UPDATE wp_options SET option_value='https://localhost/wordpress' WHERE option_name='siteurl' OR option_name='home';"
 
 # Installing phpmyadmin

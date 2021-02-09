@@ -4,9 +4,11 @@ then
 	echo "1 on - 0 off"
 elif [ $1 -eq 0 ]
 then
-	sed -i 'autoindex off;' /etc/nginx/sites-enabled/localhost
-	service nginx reload
+	sed -i 's/autoindex on/autoindex off/' /etc/nginx/sites-enabled/localhost
+	service nginx restart
+	echo "autoindex turned off"
 else
-	sed -i 'autoindex on;' /etc/nginx/sites-enabled/localhost
-	service nginx reload
+	sed -i 's/autoindex off/autoindex on/' /etc/nginx/sites-enabled/localhost
+	service nginx restart
+	echo "autoindex turned on"
 fi
